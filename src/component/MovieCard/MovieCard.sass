@@ -1,0 +1,46 @@
+$green: #34A853
+$amber: #fbbc04
+$red: #CF3721
+$disabled: #DFDFDE
+$grey: #4A4A4A
+$light-grey: #9B9B9B
+$white : white
+
+.movie-card  
+    background-color: $white
+    width: 12.5rem
+    border-radius: 1.2rem
+    margin: 2rem
+    box-shadow: 10px 10px 20px $light-grey
+    .preview 
+        border-radius: 1.2rem 1.2rem 0rem 0rem
+        background-color: black
+        width: 200px
+        height: 230px
+
+    .info
+        display: flex
+        flex-direction: row
+        margin: .1rem .6rem
+        justify-content: space-between
+
+        .title
+            font-weight: bold
+            margin: unset
+            white-space: nowrap
+            overflow: hidden
+            text-overflow: ellipsis
+
+        .rating
+            color: $light-grey
+            margin: unset
+        
+    .description
+        padding-bottom: 0.8rem
+        margin-left: 0.6rem
+        text-align: start
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
+
+
