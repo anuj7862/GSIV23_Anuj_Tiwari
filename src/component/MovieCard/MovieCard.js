@@ -27,7 +27,6 @@ export default function MovieCard(props) {
     
       <img src={props.preview ? `${serviceProps.getMoviePoster.uri}${props.preview}` : movie_logo}
                  alt="movie image" 
-                 onerror={`this.src='${movie_logo}';`}
                  className="preview" />
       <div className='info'>
         <p className='title'>{props.title}</p>
