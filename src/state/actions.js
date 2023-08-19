@@ -25,7 +25,7 @@ export const getUpcomingMovie = (page, actionType) => {
         errorMessage: null,
     };
     console.log("In Action GetUpcomingMovie", page);
-    const serviceURI = `${serviceProps.getUpcomingMovie.uri}?page=${page}`;
+    const serviceURI = `${serviceProps.getUpcomingMovie.uri}??sort_by=release_date.descpage=${page}`;
 
     return async (dispatch) => {
         try {
@@ -81,7 +81,7 @@ export const getSearchedMovie = ( searchString,page,actionType) => {
         errorMessage: null,
     };
 
-    const serviceURI = `${serviceProps.getSearchedMovie.uri}?query=${searchString}&page=${page}`;
+    const serviceURI = `${serviceProps.getSearchedMovie.uri}?query=${searchString}&sort_by=release_date.desc&page=${page}`;
 
     return async (dispatch) => {
         try {

@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import axios from 'axios';
 
 import MovieCard from '../../component/MovieCard/MovieCard';
 import { clearResponse, getSearchedMovie, getUpcomingMovie } from '../../state/actions';
@@ -40,10 +39,9 @@ export default function MovieList() {
 
   useEffect(() => {
     if (appState?.respMessage !== null && appState?.respMessage !== undefined) {
-      if (appState.respMessage?.length == 0)
+      if (appState.respMessage?.length === 0)
         setHasMore(false);
-      setMovies(movies => [...movies, ...appState.respMessage].sort(
-          (a, b) => new Date(b.release_date) - new Date(a.release_date)));
+      setMovies(movies => [...movies, ...appState.respMessage]);
       //setMovies(appState.respMessage);
       setPage(page => page + 1);
       //console.log("In side useEffect MoiveList", appState.respMessage);
