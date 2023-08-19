@@ -1,3 +1,8 @@
+import axios from "axios";
+
+//-----------------------------------------------
+export const ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlODAyZThiMjZjMzJiZTQ3MDg3ZDU2ZmViNzNkNDA0OSIsInN1YiI6IjY0ZGYxZjAzNWFiODFhMDExYzJlNmE2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.gytl9Yob5RTsfLxD_C_1qjq9y6ANcsFJ4XidtuDsHZA";
+//-----------------------------------------------
 export const environmentInfo = {
     currentEnv : 'dev',
     environment : {
@@ -15,3 +20,15 @@ export const environmentInfo = {
 };
 
 console.log("Current Environment Version ", environmentInfo.environment[environmentInfo.currentEnv]);
+
+export const axiosInstances = {
+    tmdbBaseService : axios.create({
+        baseURL: 'https://api.themoviedb.org/3',
+    }),
+};
+
+export const serviceProps = {
+    getUpcomingMovie : {
+        uri : '/movie/upcoming',
+    },
+};
