@@ -34,5 +34,9 @@ export const serviceProps = {
 
     getMoviePoster : {
         uri: 'https://image.tmdb.org/t/p/w200/',
+    },
+
+    getSearchedMovie : {
+        uri : '/search/movie',
     }
 };

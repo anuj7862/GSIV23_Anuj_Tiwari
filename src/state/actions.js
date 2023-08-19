@@ -69,3 +69,59 @@ export const getUpcomingMovie = (page, actionType) => {
         }
     };
 }
+
+export const getSearchedMovie = ( searchString,page,actionType) => {
+    let inputHeader = null;
+    let serviceURLInstance = axiosInstances.tmdbBaseService;
+    let respOutputGetSearchedMovie = {
+        isServiceCalled : false,
+        isSuccessResp : false,
+        respMessage: null,
+        errorCode : null,
+        errorMessage: null,
+    };
+
+    const serviceURI = `${serviceProps.getSearchedMovie.uri}?query=${searchString}&page=${page}`;
+
+    return async (dispatch) => {
+        try {
+            inputHeader = {
+                accept: 'application/json',
+                Authorization: `Bearer ${ACCESS_TOKEN}`,
+            }
+            await serviceURLInstance
+                .get(serviceURI,{
+                    headers: inputHeader,
+                    timeout: 10000,
+                }).then((success) =>{
+                    respOutputGetSearchedMovie.isServiceCalled = true;
+                    respOutputGetSearchedMovie.isSuccessResp = true;
+                    respOutputGetSearchedMovie.respMessage = success.data.results;
+                    //console.log("success", respOutputGetSearchedMovie);
+                    dispatch({
+                        type: actionType,
+                        payload: respOutputGetSearchedMovie,
+                    });
+                })
+                .catch((serviceError) =>{
+                    respOutputGetSearchedMovie.isServiceCalled = true;
+                    respOutputGetSearchedMovie.isSuccessResp = false;
+                    respOutputGetSearchedMovie.errorMessage = serviceError.response.data;
+                    console("Error In GetSearchedMovie", serviceError);
+                    dispatch({
+                        type: actionType,
+                        payload: respOutputGetSearchedMovie,
+                    });
+                });
+        }
+        catch {
+            respOutputGetSearchedMovie.isServiceCalled = false;
+            respOutputGetSearchedMovie.isSuccessResp = false;
+            console.log("Error in GetSearchedMovie : No response from service");
+            dispatch({
+                type: actionType,
+                payload: respOutputGetSearchedMovie,
+            });
+        }
+    };
+}
