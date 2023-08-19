@@ -5,7 +5,7 @@ import MovieDetails from './MovieDetails';
 
 test('must render movie details correctly with all needed element', () => {
     const props = {
-        id: 12,
+        movieId: 12,
     };
 
     const {getByText, getByAltText} = render(<MovieDetails {...props}/>);

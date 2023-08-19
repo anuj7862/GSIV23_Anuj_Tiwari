@@ -38,5 +38,9 @@ export const serviceProps = {
 
     getSearchedMovie : {
         uri : '/search/movie',
-    }
+    },
+    
+    getMoiveDetails : {
+        uri : '/movie/'
+    },
 };
