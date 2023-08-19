@@ -38,7 +38,9 @@ export default function MovieList() {
   return (
     <div className='movie-list'>
       {movies.map(movie => (
-        <MovieCard
+        <MovieCard 
+          key = {movie?.id}
+          id = {movie?.id}
           preview={movie?.poster_path}
           title={movie?.title}
           rating={movie?.vote_average}
