@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MovieCard from '../../component/MovieCard/MovieCard';
-import { getUpcomingMovie } from '../../state/actions';
+import { clearResponse, getUpcomingMovie } from '../../state/actions';
 import { GET_MOVIES } from '../../state/actionTypes';
 import './MovieList.sass';
 
@@ -30,7 +30,8 @@ export default function MovieList() {
   useEffect(() => {
     if (appState?.respMessage !== null && appState?.respMessage !== undefined) {
       setMovies(appState.respMessage);
-      console.log("@@@", appState.respMessage);
+      console.log("Inside MovieList useEffect");
+      dispatch(clearResponse(GET_MOVIES));
     }
   }, [appState, appState?.respMessage, dispatch]);
 
