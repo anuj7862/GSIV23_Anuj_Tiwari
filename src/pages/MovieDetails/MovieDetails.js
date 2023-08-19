@@ -23,8 +23,6 @@ export default function MovieDetails() {
     const [ratingClass, setRatingClass] = useState('');
     const onLoad = useCallback(() =>{
     if(!isOnLoad){
-        console.log("slsls");
-
         return;
     }
     else{
@@ -63,8 +61,6 @@ export default function MovieDetails() {
         let crew = movieCastData.respMessage?.crew;
         let cast = movieCastData.respMessage?.cast.map(obj => obj?.name);
         let director = crew.filter( obj => obj?.job === "Director");
-        // console.log(cast);
-        // console.log("DD", director);
         setCast(cast);
         setDirector(director);
         

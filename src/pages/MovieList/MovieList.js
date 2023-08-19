@@ -42,7 +42,8 @@ export default function MovieList() {
     if (appState?.respMessage !== null && appState?.respMessage !== undefined) {
       if (appState.respMessage?.length == 0)
         setHasMore(false);
-      setMovies(movies => [...movies, ...appState.respMessage]);
+      setMovies(movies => [...movies, ...appState.respMessage].sort(
+          (a, b) => new Date(b.release_date) - new Date(a.release_date)));
       //setMovies(appState.respMessage);
       setPage(page => page + 1);
       //console.log("In side useEffect MoiveList", appState.respMessage);
