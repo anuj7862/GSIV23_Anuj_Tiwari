@@ -31,4 +31,8 @@ export const serviceProps = {
     getUpcomingMovie : {
         uri : '/movie/upcoming',
     },
+
+    getMoviePoster : {
+        uri: 'https://image.tmdb.org/t/p/w200/',
+    }
 };
