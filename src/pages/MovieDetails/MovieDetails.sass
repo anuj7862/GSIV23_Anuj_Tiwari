@@ -1,0 +1,66 @@
+$green: #34A853
+$amber: #fbbc04
+$red: #CF3721
+$disabled: #DFDFDE
+$grey: #4A4A4A
+$light-grey: #9B9B9B
+$white: #fffffff0
+
+.header-title
+    margin: 1.35rem 3rem
+    font-weight: bold
+    color: $grey
+
+
+.movie-info
+    margin: 6rem 2rem
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+
+    .info
+        margin-left: 3rem
+        text-align: start
+        width: 60%
+        .title
+            font-weight: bold
+            color: $grey
+            margin: 1rem 0rem
+            
+            @mixin rating
+                margin: unset
+                font-weight: 800
+                font-size: large
+        
+            .high-rating
+                +rating
+                color: $green
+            
+            .mid-rating
+                +rating
+                color: $amber
+            
+            .low-rating
+                +rating
+                color: $red
+            
+        .year-len-director
+            color: $grey
+            margin-bottom: 1rem
+            
+        .cast
+            color: $grey
+            white-space: nowrap
+            overflow: hidden
+            text-overflow: ellipsis
+            margin-bottom: 1rem
+            
+        .description
+            color: $grey
+
+@media (max-width: 685px)
+    .movie-info
+        justify-content: center
+    .info
+        margin: 4rem 1rem
+        width: 100%

@@ -1,0 +1,69 @@
+$green: #34A853
+$amber: #fbbc04
+$red: #CF3721
+$disabled: #DFDFDE
+$grey: #4A4A4A
+$light-grey: #9B9B9B
+
+    
+.movie-card  
+    background-color: white
+    width: 12.5rem
+    border: .01rem solid $disabled
+    border-radius: 1.2rem
+    margin: 2rem
+    box-shadow: 14px 14px 15px rgba(0, 0, 0, 0.3)
+    &:hover 
+        box-shadow: 40px 40px 45px rgba(0, 0, 0, 0.6)
+        transform: translateY(-10px)
+        z-index: 4
+    .card-link
+        text-decoration: none
+        color: unset
+        font-size: unset
+
+    .preview 
+        border-radius: 1.2rem 1.2rem 0rem 0rem
+        background-color: black
+        width: 200px
+        height: 250px
+
+    .info
+        display: flex
+        flex-direction: row
+        margin: .3rem .6rem
+        justify-content: space-between
+
+        .title
+            font-weight: bold
+            margin: unset
+            white-space: nowrap
+            overflow: hidden
+            text-overflow: ellipsis
+
+        @mixin rating
+            margin: unset
+            font-weight: 800
+            font-size: large
+        
+        .high-rating
+            +rating
+            color: $green
+        
+        .mid-rating
+            +rating
+            color: $amber
+        
+        .low-rating
+            +rating
+            color: $red
+        
+    .description
+        //padding-bottom: 0.8rem
+        margin-left: 0.6rem
+        text-align: start
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
+
+
