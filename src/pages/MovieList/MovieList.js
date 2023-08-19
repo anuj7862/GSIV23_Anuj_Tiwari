@@ -1,12 +1,16 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+
 import MovieCard from '../../component/MovieCard/MovieCard';
 import { clearResponse, getSearchedMovie, getUpcomingMovie } from '../../state/actions';
-import { GET_MOVIES } from '../../state/actionTypes';
+import { GET_MOVIES, GET_MOVIE_CAST_DETAILS, GET_MOVIE_DETAILS } from '../../state/actionTypes';
 import './MovieList.sass';
+import { serviceProps } from '../../config/appEnvConfig';
 
 export default function MovieList() {
+
   const appState = useSelector((state) => state.movies_list);
   const dispatch = useDispatch();
 
@@ -22,9 +26,11 @@ export default function MovieList() {
     else {
       isOnLoad = false;
       dispatch(clearResponse(GET_MOVIES));
+      dispatch(clearResponse(GET_MOVIE_CAST_DETAILS));
+      dispatch(clearResponse(GET_MOVIE_DETAILS));
       dispatch(getUpcomingMovie(1, GET_MOVIES));
       //setPage(page => page+1);
-      console.log("inside onLoad of MovieList", isOnLoad);
+      console.log("on Load List Screen", isOnLoad);
     }
   }, [dispatch, isOnLoad]);
 
@@ -32,25 +38,27 @@ export default function MovieList() {
     onLoad();
   }, [onLoad, isOnLoad]);
 
-
   useEffect(() => {
     if (appState?.respMessage !== null && appState?.respMessage !== undefined) {
-      if (appState.respMessage.length === 0)
+      if (appState.respMessage?.length == 0)
         setHasMore(false);
       setMovies(movies => [...movies, ...appState.respMessage]);
       //setMovies(appState.respMessage);
       setPage(page => page + 1);
+      //console.log("In side useEffect MoiveList", appState.respMessage);
       dispatch(clearResponse(GET_MOVIES));
     }
   }, [appState, appState?.respMessage, dispatch]);
 
   const loadData = () => {
-    //console.log("in side loadData infi");
+    //console.log("In side loading infinite");
     if (searchQuery === '') {
       dispatch(getUpcomingMovie(page, GET_MOVIES));
+      setHasMore(true);
     }
     else {
       dispatch(getSearchedMovie(searchQuery, page, GET_MOVIES));
+      setHasMore(true);
     }
   };
 
@@ -60,9 +68,11 @@ export default function MovieList() {
     setPage(1);
     if (event.target.value === '') {
       dispatch(getUpcomingMovie(1, GET_MOVIES));
+      setHasMore(true);
     }
     else {
       dispatch(getSearchedMovie(event.target.value, 1, GET_MOVIES));
+      setHasMore(true);
     }
   };
 
@@ -72,6 +82,12 @@ export default function MovieList() {
       behavior: "smooth"
     });
   };
+
+  const Loading = () => {
+    return (
+      <h3 className='loading-list'>Loading...</h3>
+    );
+  }
 
   return (
     <div>
@@ -86,15 +102,17 @@ export default function MovieList() {
           dataLength={movies.length}
           next={loadData}
           hasMore={hasMore}
-          loader={<h4>Loading...</h4>}
+          loader={<Loading />}
         >
           <div className='movie-list'>
             {movies.map(movie => (
               <MovieCard
-                preview={movie.poster_path}
-                title={movie.title}
-                rating={movie.vote_average}
-                description={movie.overview}
+                key={movie?.id}
+                id={movie?.id}
+                preview={`${serviceProps.getMoviePoster.uri}${movie?.poster_path}`}
+                title={movie?.title}
+                rating={movie?.vote_average}
+                description={movie?.overview}
               />
             ))}
           </div>
@@ -102,4 +120,4 @@ export default function MovieList() {
       </div>
     </div>
   )
-};
+}
