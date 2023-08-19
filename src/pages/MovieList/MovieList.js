@@ -108,9 +108,9 @@ export default function MovieList() {
               <MovieCard
                 key={movie?.id}
                 id={movie?.id}
-                preview={`${serviceProps.getMoviePoster.uri}${movie?.poster_path}`}
+                preview={movie?.poster_path}
                 title={movie?.title}
-                rating={movie?.vote_average}
+                rating={Number(movie?.vote_average.toFixed(1))}
                 description={movie?.overview}
               />
             ))}

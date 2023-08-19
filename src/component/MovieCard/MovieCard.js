@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { serviceProps } from '../../config/appEnvConfig';
 
+import { serviceProps } from '../../config/appEnvConfig';
+import movie_logo from '../../movie_logo.jpg';
 import './MovieCard.sass';
+
 export default function MovieCard(props) {
   
   let ratingClass = '';
@@ -23,7 +25,10 @@ export default function MovieCard(props) {
     <div className='movie-card' key={props.id} >
     <Link to={`/details/${props.id}`} className="card-link" >
     
-      <img src={`${serviceProps.getMoviePoster.uri}${props.preview}`} alt="" className="preview" />
+      <img src={props.preview ? `${serviceProps.getMoviePoster.uri}${props.preview}` : movie_logo}
+                 alt="movie image" 
+                 onerror={`this.src='${movie_logo}';`}
+                 className="preview" />
       <div className='info'>
         <p className='title'>{props.title}</p>
         <p className={ratingClass}>{`(${props.rating})`}</p>
