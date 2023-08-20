@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -6,7 +6,6 @@ import MovieCard from '../../component/MovieCard/MovieCard';
 import { clearResponse, getSearchedMovie, getUpcomingMovie } from '../../state/actions';
 import { GET_MOVIES, GET_MOVIE_CAST_DETAILS, GET_MOVIE_DETAILS } from '../../state/actionTypes';
 import './MovieList.sass';
-import { serviceProps } from '../../config/appEnvConfig';
 
 export default function MovieList() {
 
@@ -15,15 +14,15 @@ export default function MovieList() {
 
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
-  let isOnLoad = true;
+  let isOnLoad = useRef(true);
   const [hasMore, setHasMore] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
 
   const onLoad = useCallback(() => {
-    if (!isOnLoad)
+    if (!isOnLoad.current)
       return;
     else {
-      isOnLoad = false;
+      isOnLoad.current = false;
       dispatch(clearResponse(GET_MOVIES));
       dispatch(clearResponse(GET_MOVIE_CAST_DETAILS));
       dispatch(clearResponse(GET_MOVIE_DETAILS));
@@ -38,6 +37,7 @@ export default function MovieList() {
   }, [onLoad, isOnLoad]);
 
   useEffect(() => {
+    //if get Success response...
     if (appState?.respMessage !== null && appState?.respMessage !== undefined) {
       if (appState.respMessage?.length === 0)
         setHasMore(false);
@@ -47,7 +47,12 @@ export default function MovieList() {
       //console.log("In side useEffect MoiveList", appState.respMessage);
       dispatch(clearResponse(GET_MOVIES));
     }
-  }, [appState, appState?.respMessage, dispatch]);
+    //if got error show altert...
+    else if(appState?.errorMessage !== null && appState?.errorMessage !== undefined){
+        alert("Error in getUpcomingMovie or getSearchedMovie api" + appState.errorMessage);
+    }
+
+  }, [appState, appState?.respMessage, appState?.errorMessage, dispatch]);
 
   const loadData = () => {
     //console.log("In side loading infinite");
@@ -97,25 +102,28 @@ export default function MovieList() {
         {/* </button> */}
       </div>
       <div className='movie-list'>
-        <InfiniteScroll
-          dataLength={movies.length}
-          next={loadData}
-          hasMore={hasMore}
-          loader={<Loading />}
-        >
-          <div className='movie-list'>
-            {movies.map(movie => (
-              <MovieCard
-                key={movie?.id}
-                id={movie?.id}
-                preview={movie?.poster_path}
-                title={movie?.title}
-                rating={Number(movie?.vote_average.toFixed(1))}
-                description={movie?.overview}
-              />
-            ))}
-          </div>
-        </InfiniteScroll>
+        { (movies.length > 0) ?
+            <InfiniteScroll
+              dataLength={movies.length}
+              next={loadData}
+              hasMore={hasMore}
+              loader={<Loading />}
+            >
+              <div className='movie-list'>
+                {movies.map(movie => (
+                  <MovieCard
+                    key={movie?.id}
+                    id={movie?.id}
+                    preview={movie?.poster_path}
+                    title={movie?.title}
+                    rating={Number(movie?.vote_average.toFixed(1))}
+                    description={movie?.overview}
+                  />
+                ))}
+              </div>
+            </InfiniteScroll>
+            : <h2 className='error-message'> {`:( No Data Found...`} </h2>
+        }
       </div>
     </div>
   )

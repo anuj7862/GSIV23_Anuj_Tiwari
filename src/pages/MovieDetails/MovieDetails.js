@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { serviceProps } from '../../config/appEnvConfig';
@@ -14,7 +14,7 @@ export default function MovieDetails() {
     const movieCastData = useSelector((state) => state.movie_cast_details)
     const dispatch = useDispatch();
 
-    let isOnLoad = true;
+    let isOnLoad = useRef(true);
     const [movieDetails, setMovieDetails] = useState([]);
     const [dataLoaded, setDataLoaded] = useState(false);
     const [year, setYear] = useState('');
@@ -24,18 +24,18 @@ export default function MovieDetails() {
     const [cast, setCast] = useState([]);
     const [ratingClass, setRatingClass] = useState('');
     const onLoad = useCallback(() =>{
-    if(!isOnLoad){
+    if(!isOnLoad.current){
         return;
     }
     else{
         console.log('onLoad function Details page');
-        isOnLoad = false;
+        isOnLoad.current = false;
         dispatch(clearResponse(GET_MOVIE_DETAILS));
         dispatch(clearResponse(GET_MOVIE_CAST_DETAILS));
         dispatch(getMoiveDetails(id, GET_MOVIE_DETAILS));
         dispatch(getMoiveCastDetails(id, GET_MOVIE_CAST_DETAILS));
     }
-  }, [dispatch, isOnLoad]);
+  }, [dispatch, id, isOnLoad]);
 
   useEffect(() => {
     onLoad();
@@ -50,6 +50,8 @@ export default function MovieDetails() {
   };
   
   useEffect(() => {
+    
+    //if get Success response...
     if(movieData?.respMessage !== null && movieData?.respMessage !== undefined){ 
         setMovieDetails(movieData.respMessage);
         setYear(movieData.respMessage?.release_date.split('-')[0]);
@@ -58,16 +60,26 @@ export default function MovieDetails() {
         setRatingClass(ratingClassFunc(movieData.respMessage.vote_average));
         setDataLoaded(true);
     }
+    //if got error show alter
+    else if(movieData?.errorMessage !== null && movieData?.errorMessage !== undefined){
+        alert("Error in getMovieDetails api" + movieData.errorMessage);
+    }
 
+    //-----------------------------------------------------------------------------------
+    //if get Success response...
     if(movieCastData?.respMessage !== null && movieCastData?.respMessage !== undefined){
         let crew = movieCastData.respMessage?.crew;
-        let cast = movieCastData.respMessage?.cast.map(obj => obj?.name);
+        let cast = movieCastData.respMessage?.cast.map(obj => " " + obj?.name);
         let director = crew.filter( obj => obj?.job === "Director");
         setCast(cast);
         setDirector(director);
         
     }
-  },[movieData?.respMessage, movieCastData?.respMessage, dispatch]);
+    //if got error show alter
+    else if(movieCastData?.errorMessage !== null && movieCastData?.errorMessage !== undefined){
+        alert("Error in getMovieCastDetials api" + movieCastData.errorMessage);
+    }
+  },[movieData?.respMessage, movieCastData?.respMessage,movieData?.errorMessage, movieCastData?.errorMessage, dispatch]);
 
 
   return (
@@ -81,8 +93,8 @@ export default function MovieDetails() {
         </div>
         {dataLoaded &&
             <div className='movie-info'>
-            <img src={movieDetails?.poster_path ? `${serviceProps.getMoviePoster.uri}${movieDetails?.poster_path}` : movie_logo} alt="" className="preview" />
-            <div className="info">
+            <img src={movieDetails?.poster_path ? `${serviceProps.getMoviePoster.uri}${movieDetails?.poster_path}` : movie_logo}  alt="" className="preview" />
+            <div className="info-details">
                 <div className="title">{`${movieDetails?.original_title} (`}<span className={ratingClass}>{Number(movieDetails?.vote_average.toFixed(1))}</span>{`)`} </div>
                 <div className="year-len-director">{`${year} | ${hour}:${min} | ${director[0]?.name}`}</div>
                 <div className="cast">{`Cast: ${cast}`}</div>
