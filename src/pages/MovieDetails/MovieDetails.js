@@ -35,7 +35,7 @@ export default function MovieDetails() {
         dispatch(getMoiveDetails(id, GET_MOVIE_DETAILS));
         dispatch(getMoiveCastDetails(id, GET_MOVIE_CAST_DETAILS));
     }
-  }, [dispatch, isOnLoad]);
+  }, [dispatch, id, isOnLoad]);
 
   useEffect(() => {
     onLoad();
@@ -81,7 +81,7 @@ export default function MovieDetails() {
         </div>
         {dataLoaded &&
             <div className='movie-info'>
-            <img src={movieDetails?.poster_path ? `${serviceProps.getMoviePoster.uri}${movieDetails?.poster_path}` : movie_logo} alt="" className="preview" />
+            <img src={movieDetails?.poster_path ? `${serviceProps.getMoviePoster.uri}${movieDetails?.poster_path}` : movie_logo}  alt="" className="preview" />
             <div className="info">
                 <div className="title">{`${movieDetails?.original_title} (`}<span className={ratingClass}>{Number(movieDetails?.vote_average.toFixed(1))}</span>{`)`} </div>
                 <div className="year-len-director">{`${year} | ${hour}:${min} | ${director[0]?.name}`}</div>
