@@ -69,7 +69,7 @@ export default function MovieDetails() {
     //if get Success response...
     if(movieCastData?.respMessage !== null && movieCastData?.respMessage !== undefined){
         let crew = movieCastData.respMessage?.crew;
-        let cast = movieCastData.respMessage?.cast.map(obj => obj?.name);
+        let cast = movieCastData.respMessage?.cast.map(obj => " " + obj?.name);
         let director = crew.filter( obj => obj?.job === "Director");
         setCast(cast);
         setDirector(director);
