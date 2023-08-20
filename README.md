@@ -1,70 +1,83 @@
-# Getting Started with Create React App
+# GSynergy React Web Challenge: GSIV23
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This README provides detailed instructions for running the code and also highlights accomplishments, outlines potential improvements, and feedback for this Challenge.
 
-## Available Scripts
+## Table of Contents
+- [Getting Started](#getting-started)
+- [Highlighted Achievements](#highlighted-achievements)
+- [Possible Improvements](#possible-improvements)
+- [Feedback](#feedback)
 
-In the project directory, you can run:
+## Getting Started
 
-### `npm start`
+To get started with the App, follow these steps: 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Clone the repository: `git clone https://github.com/anuj7862/GSIV23_Anuj_Tiwari.git`
+2. In the project directory install dependencies using the command: `npm install`
+4. Obtain ACCESS TOKEN for API from TMDB (`https://www.themoviedb.org/settings/api`)
+5. After getting the Access token value from TMDB add the ACCESS TOKEN value in the `appEnvConfig` file :
+   `export const ACCESS_TOKEN = <Your Access Token value>`
+7. Launch the app: `npm start`
+8. Access the app in your browser at [http://localhost:3000](http://localhost:3000)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## Highlighted Achievements
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Here are some achievements that demonstrate my proficiency in this challenge:
 
-### `npm run build`
+### 1. Code Structure and Component Reusability:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Organized the codebase into folders like `pages`, `component`, `state`, and `config`, enabling a clear separation of concerns. Additionally,  designed reusable components like `MovieCard`, `MovieDetails`, and `MovieList` for maintainability and scalability.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 2. Utilization of Sass for Styling:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Employed Sass to create the CSS files for this project. This approach allowed me to harness the power of variables, nesting, and other advanced features to produce maintainable and organized stylesheets.
 
-### `npm run eject`
+### 3. State Management with React-Redux
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Employed the efficient and robust technique of State Management through React-Redux in conjunction with Redux-Thunk to handle state and API interactions. This includes creating well-structured actions and reducers to manage data fetched from APIs. By utilizing middleware like Redux-Thunk, I am able to manage asynchronous operations seamlessly, providing a smooth user experience.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 4. Seamless API Integration
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Within this application, seamless integration with external APIs has been achieved to fetch essential data. These API calls have been meticulously encapsulated, and a comprehensive error-handling mechanism is in place. This design ensures that users are provided with a fluid and uninterrupted experience, even in the face of potential errors during data retrieval.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 5. Responsive Design
 
-## Learn More
+Incorporated media queries and utilized responsive design libraries to ensure that the App provides an optimal viewing experience across a wide range of devices. By leveraging both custom media queries and responsive design tools.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 6. Dynamic Color Coding for Movie Ratings
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Implemented a dynamic color coding for movie ratings on both screens, where ratings greater than or equal to 7 are highlighted in green, ratings greater than or equal to 4 are highlighted in amber, and the rest are highlighted in red. This feature enhances the visual appeal of the app.
 
-### Code Splitting
+### 7. Efficient Routing and Navigation with React Router:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Integrated `react-router-dom' to handle routing and navigation within the App. This allows users to easily navigate between different sections of the app while maintaining a smooth and intuitive user experience.
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Possible Improvements
 
-### Making a Progressive Web App
+With an additional 4 hours, I would focus on enhancing the following enhancements further:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### 1. Focused Unit Testing
 
-### Advanced Configuration
+I will allocate time to implement comprehensive unit tests, with a particular focus on critical components and interactions to ensure the stability and reliability of the app.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### 2. Optimization Efforts
 
-### Deployment
+I will perform optimization tasks such as code splitting, lazy loading, and performance tuning to ensure that the app performs efficiently and delivers a seamless experience.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### 3. Accessibility and Advanced Features
 
-### `npm run build` fails to minify
+I will further enhance accessibility by conducting audits, improving keyboard navigation, and implementing advanced features that enhance the overall user experience.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 4. Error Handling with Custom Modals: 
+
+I will try to implement a more robust error-handling mechanism and also create custom modal dialogs to provide users with clear and informative error messages, enhancing the user experience during unexpected scenarios.
+
+## Feedback
+
+Thank you for providing the opportunity to complete this challenge. I found the exercise to be engaging and beneficial for assessing my React skills. The instructions were clear, and the project requirements were well-defined.
+
+In terms of improvement, it might be helpful to include a section in the instructions that outlines the expected scope and complexity of the solution. This could provide candidates with a better understanding of the level of detail and features they should aim to include in their submissions.
+
+Overall, I believe the challenge serves its purpose effectively and provides a solid foundation for evaluating React proficiency. Thank you again for the opportunity, and I look forward to any potential future collaborations :).
