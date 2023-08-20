@@ -5,7 +5,6 @@ import store from './state/store';
 
 import './App.css';
 import MovieDetails from './pages/MovieDetails/MovieDetails';
-//import MovieCard from './component/MovieCard/MovieCard';
 import MovieList from './pages/MovieList/MovieList';
 
 function App() {

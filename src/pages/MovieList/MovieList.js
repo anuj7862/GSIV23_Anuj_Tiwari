@@ -27,7 +27,6 @@ export default function MovieList() {
       dispatch(clearResponse(GET_MOVIE_CAST_DETAILS));
       dispatch(clearResponse(GET_MOVIE_DETAILS));
       dispatch(getUpcomingMovie(1, GET_MOVIES));
-      //setPage(page => page+1);
       console.log("on Load List Screen", isOnLoad);
     }
   }, [dispatch, isOnLoad]);
@@ -42,7 +41,6 @@ export default function MovieList() {
       if (appState.respMessage?.length === 0)
         setHasMore(false);
       setMovies(movies => [...movies, ...appState.respMessage]);
-      //setMovies(appState.respMessage);
       setPage(page => page + 1);
       //console.log("In side useEffect MoiveList", appState.respMessage);
       dispatch(clearResponse(GET_MOVIES));
@@ -55,7 +53,6 @@ export default function MovieList() {
   }, [appState, appState?.respMessage, appState?.errorMessage, dispatch]);
 
   const loadData = () => {
-    //console.log("In side loading infinite");
     if (searchQuery === '') {
       dispatch(getUpcomingMovie(page, GET_MOVIES));
       setHasMore(true);
@@ -97,9 +94,7 @@ export default function MovieList() {
     <div>
       <div className='header'>
         <input type="text" placeholder='Search' onChange={changeHandler} />
-        {/* <button className='home-icon'> */}
         <i className='material-icons home-icon' onClick={handleHomeClick}>home</i>
-        {/* </button> */}
       </div>
       <div className='movie-list'>
         { (movies.length > 0) ?

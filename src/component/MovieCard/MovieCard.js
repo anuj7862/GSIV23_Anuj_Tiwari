@@ -17,10 +17,6 @@ export default function MovieCard(props) {
   else
     ratingClass = 'low-rating';
   
-    
-  
-  
-  // console.log('id' , props.id);
   return (
     <div className='movie-card' key={props.id} >
     <Link to={`/details/${props.id}`} className="card-link" >
