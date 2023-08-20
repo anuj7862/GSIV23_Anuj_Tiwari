@@ -17,7 +17,7 @@ export default function MovieList() {
   let isOnLoad = useRef(true);
   const [hasMore, setHasMore] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
-
+  const [errorFlag, setErrorFlag] = useState(false);
   const onLoad = useCallback(() => {
     if (!isOnLoad.current)
       return;
@@ -44,10 +44,12 @@ export default function MovieList() {
       setPage(page => page + 1);
       //console.log("In side useEffect MoiveList", appState.respMessage);
       dispatch(clearResponse(GET_MOVIES));
+      setErrorFlag(true);
     }
     //if got error show altert...
     else if(appState?.errorMessage !== null && appState?.errorMessage !== undefined){
         alert("Error in getUpcomingMovie or getSearchedMovie api" + appState.errorMessage);
+        setErrorFlag(true);
     }
 
   }, [appState, appState?.respMessage, appState?.errorMessage, dispatch]);
@@ -55,10 +57,12 @@ export default function MovieList() {
   const loadData = () => {
     if (searchQuery === '') {
       dispatch(getUpcomingMovie(page, GET_MOVIES));
+      setErrorFlag(false);
       setHasMore(true);
     }
     else {
       dispatch(getSearchedMovie(searchQuery, page, GET_MOVIES));
+      setErrorFlag(false);
       setHasMore(true);
     }
   };
@@ -69,10 +73,12 @@ export default function MovieList() {
     setPage(1);
     if (event.target.value === '') {
       dispatch(getUpcomingMovie(1, GET_MOVIES));
+      setErrorFlag(false);
       setHasMore(true);
     }
     else {
       dispatch(getSearchedMovie(event.target.value, 1, GET_MOVIES));
+      setErrorFlag(false);
       setHasMore(true);
     }
   };
@@ -97,7 +103,7 @@ export default function MovieList() {
         <i className='material-icons home-icon' onClick={handleHomeClick}>home</i>
       </div>
       <div className='movie-list'>
-        { (movies.length > 0) ?
+        { (movies.length > 0  || !errorFlag) ?
             <InfiniteScroll
               dataLength={movies.length}
               next={loadData}
