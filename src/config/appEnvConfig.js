@@ -19,7 +19,7 @@ export const environmentInfo = {
     }
 };
 
-console.log("Current Environment Version ", environmentInfo.environment[environmentInfo.currentEnv]);
+//console.log("Current Environment Version ", environmentInfo.environment[environmentInfo.currentEnv]);
 
 export const axiosInstances = {
     tmdbBaseService : axios.create({

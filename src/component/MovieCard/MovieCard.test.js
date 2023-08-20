@@ -1,6 +1,8 @@
 import React from 'react';
 import {render} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
+import { BrowserRouter as Router} from 'react-router-dom';
+
 import MovieCard from './MovieCard';
 
 test('must render movie card correctly with all needed element', () => {
@@ -12,11 +14,16 @@ test('must render movie card correctly with all needed element', () => {
         description: "good test case......."
     };
 
-    const {getByText, getByAltText} = render(<MovieCard {...props}/>);
+    const {getByText, getByAltText} = render(
+        <Router>
+            <MovieCard {...props}/>
+        </Router>
+        );
+
 
     const imageTag = getByAltText('');
     const titleDiv = getByText(props.title);
-    const ratingDiv = getByText('4');
+    const ratingDiv = getByText('(4)');
     const descriptionDiv = getByText(props.description);
 
     expect(imageTag).toBeInTheDocument();
