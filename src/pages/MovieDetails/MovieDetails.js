@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { serviceProps } from '../../config/appEnvConfig';
@@ -14,7 +14,7 @@ export default function MovieDetails() {
     const movieCastData = useSelector((state) => state.movie_cast_details)
     const dispatch = useDispatch();
 
-    let isOnLoad = true;
+    let isOnLoad = useRef(true);
     const [movieDetails, setMovieDetails] = useState([]);
     const [dataLoaded, setDataLoaded] = useState(false);
     const [year, setYear] = useState('');
@@ -24,12 +24,12 @@ export default function MovieDetails() {
     const [cast, setCast] = useState([]);
     const [ratingClass, setRatingClass] = useState('');
     const onLoad = useCallback(() =>{
-    if(!isOnLoad){
+    if(!isOnLoad.current){
         return;
     }
     else{
         console.log('onLoad function Details page');
-        isOnLoad = false;
+        isOnLoad.current = false;
         dispatch(clearResponse(GET_MOVIE_DETAILS));
         dispatch(clearResponse(GET_MOVIE_CAST_DETAILS));
         dispatch(getMoiveDetails(id, GET_MOVIE_DETAILS));

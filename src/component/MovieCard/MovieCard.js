@@ -25,8 +25,7 @@ export default function MovieCard(props) {
     <div className='movie-card' key={props.id} >
     <Link to={`/details/${props.id}`} className="card-link" >
     
-      <img src={props.preview ? `${serviceProps.getMoviePoster.uri}${props.preview}` : movie_logo}
-                 alt="movie image" 
+      <img src={props.preview ? `${serviceProps.getMoviePoster.uri}${props.preview}` : movie_logo} 
                  className="preview" />
       <div className='info'>
         <p className='title'>{props.title}</p>

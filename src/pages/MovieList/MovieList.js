@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -6,7 +6,6 @@ import MovieCard from '../../component/MovieCard/MovieCard';
 import { clearResponse, getSearchedMovie, getUpcomingMovie } from '../../state/actions';
 import { GET_MOVIES, GET_MOVIE_CAST_DETAILS, GET_MOVIE_DETAILS } from '../../state/actionTypes';
 import './MovieList.sass';
-import { serviceProps } from '../../config/appEnvConfig';
 
 export default function MovieList() {
 
@@ -15,15 +14,15 @@ export default function MovieList() {
 
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
-  let isOnLoad = true;
+  let isOnLoad = useRef(true);
   const [hasMore, setHasMore] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
 
   const onLoad = useCallback(() => {
-    if (!isOnLoad)
+    if (!isOnLoad.current)
       return;
     else {
-      isOnLoad = false;
+      isOnLoad.current = false;
       dispatch(clearResponse(GET_MOVIES));
       dispatch(clearResponse(GET_MOVIE_CAST_DETAILS));
       dispatch(clearResponse(GET_MOVIE_DETAILS));
