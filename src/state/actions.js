@@ -25,7 +25,7 @@ export const getUpcomingMovie = (page, actionType) => {
         errorMessage: null,
     };
     console.log("In Action GetUpcomingMovie", page);
-    const serviceURI = `${serviceProps.getUpcomingMovie.uri}??sort_by=release_date.descpage=${page}`;
+    const serviceURI = `${serviceProps.getUpcomingMovie.uri}??sort_by=release_date.desc&page=${page}`;
 
     return async (dispatch) => {
         try {

@@ -38,7 +38,7 @@ export default function MovieList() {
   useEffect(() => {
     //if get Success response...
     if (appState?.respMessage !== null && appState?.respMessage !== undefined) {
-      if (appState.respMessage?.length === 0)
+      if (appState.respMessage?.length < 20) 
         setHasMore(false);
       setMovies(movies => [...movies, ...appState.respMessage]);
       setPage(page => page + 1);
