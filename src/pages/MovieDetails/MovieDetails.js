@@ -82,7 +82,7 @@ export default function MovieDetails() {
         {dataLoaded &&
             <div className='movie-info'>
             <img src={movieDetails?.poster_path ? `${serviceProps.getMoviePoster.uri}${movieDetails?.poster_path}` : movie_logo}  alt="" className="preview" />
-            <div className="info">
+            <div className="info-details">
                 <div className="title">{`${movieDetails?.original_title} (`}<span className={ratingClass}>{Number(movieDetails?.vote_average.toFixed(1))}</span>{`)`} </div>
                 <div className="year-len-director">{`${year} | ${hour}:${min} | ${director[0]?.name}`}</div>
                 <div className="cast">{`Cast: ${cast}`}</div>
