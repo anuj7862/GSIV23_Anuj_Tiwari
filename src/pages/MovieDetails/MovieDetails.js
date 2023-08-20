@@ -50,6 +50,8 @@ export default function MovieDetails() {
   };
   
   useEffect(() => {
+    
+    //if get Success response...
     if(movieData?.respMessage !== null && movieData?.respMessage !== undefined){ 
         setMovieDetails(movieData.respMessage);
         setYear(movieData.respMessage?.release_date.split('-')[0]);
@@ -58,7 +60,13 @@ export default function MovieDetails() {
         setRatingClass(ratingClassFunc(movieData.respMessage.vote_average));
         setDataLoaded(true);
     }
+    //if got error show alter
+    else if(movieData?.errorMessage !== null && movieData?.errorMessage !== undefined){
+        alert("Error in getMovieDetails api" + movieData.errorMessage);
+    }
 
+    //-----------------------------------------------------------------------------------
+    //if get Success response...
     if(movieCastData?.respMessage !== null && movieCastData?.respMessage !== undefined){
         let crew = movieCastData.respMessage?.crew;
         let cast = movieCastData.respMessage?.cast.map(obj => obj?.name);
@@ -67,7 +75,11 @@ export default function MovieDetails() {
         setDirector(director);
         
     }
-  },[movieData?.respMessage, movieCastData?.respMessage, dispatch]);
+    //if got error show alter
+    else if(movieCastData?.errorMessage !== null && movieCastData?.errorMessage !== undefined){
+        alert("Error in getMovieCastDetials api" + movieCastData.errorMessage);
+    }
+  },[movieData?.respMessage, movieCastData?.respMessage,movieData?.errorMessage, movieCastData?.errorMessage, dispatch]);
 
 
   return (

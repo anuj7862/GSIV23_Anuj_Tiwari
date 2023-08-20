@@ -37,6 +37,7 @@ export default function MovieList() {
   }, [onLoad, isOnLoad]);
 
   useEffect(() => {
+    //if get Success response...
     if (appState?.respMessage !== null && appState?.respMessage !== undefined) {
       if (appState.respMessage?.length === 0)
         setHasMore(false);
@@ -46,7 +47,12 @@ export default function MovieList() {
       //console.log("In side useEffect MoiveList", appState.respMessage);
       dispatch(clearResponse(GET_MOVIES));
     }
-  }, [appState, appState?.respMessage, dispatch]);
+    //if got error show altert...
+    else if(appState?.errorMessage !== null && appState?.errorMessage !== undefined){
+        alert("Error in getUpcomingMovie or getSearchedMovie api" + appState.errorMessage);
+    }
+
+  }, [appState, appState?.respMessage, appState?.errorMessage, dispatch]);
 
   const loadData = () => {
     //console.log("In side loading infinite");
@@ -96,25 +102,28 @@ export default function MovieList() {
         {/* </button> */}
       </div>
       <div className='movie-list'>
-        <InfiniteScroll
-          dataLength={movies.length}
-          next={loadData}
-          hasMore={hasMore}
-          loader={<Loading />}
-        >
-          <div className='movie-list'>
-            {movies.map(movie => (
-              <MovieCard
-                key={movie?.id}
-                id={movie?.id}
-                preview={movie?.poster_path}
-                title={movie?.title}
-                rating={Number(movie?.vote_average.toFixed(1))}
-                description={movie?.overview}
-              />
-            ))}
-          </div>
-        </InfiniteScroll>
+        { (movies.length > 0) ?
+            <InfiniteScroll
+              dataLength={movies.length}
+              next={loadData}
+              hasMore={hasMore}
+              loader={<Loading />}
+            >
+              <div className='movie-list'>
+                {movies.map(movie => (
+                  <MovieCard
+                    key={movie?.id}
+                    id={movie?.id}
+                    preview={movie?.poster_path}
+                    title={movie?.title}
+                    rating={Number(movie?.vote_average.toFixed(1))}
+                    description={movie?.overview}
+                  />
+                ))}
+              </div>
+            </InfiniteScroll>
+            : <h2 className='error-message'> {`:( Sorry  No Data Found...`} </h2>
+        }
       </div>
     </div>
   )
