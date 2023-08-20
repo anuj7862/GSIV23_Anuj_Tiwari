@@ -122,7 +122,7 @@ export default function MovieList() {
                 ))}
               </div>
             </InfiniteScroll>
-            : <h2 className='error-message'> {`:( Sorry  No Data Found...`} </h2>
+            : <h2 className='error-message'> {`:( No Data Found...`} </h2>
         }
       </div>
     </div>
